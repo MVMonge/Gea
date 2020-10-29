@@ -13,15 +13,15 @@ import javax.persistence.Table;
 public class Client {
 @Id
 @GeneratedValue(strategy = GenerationType.IDENTITY )
-private int id;
+public int id;
 @Column (name="id_administrator")
-private int id_administrator;
+public int id_administrator;
 @Column(name="email")
-private String email;
+public String email;
 @Column(name="phone")
-private String phone;
+public String phone;
 @Column(name="name")
-private String name;
+public String name;
 public int getId_administrator() {
 	return id_administrator;
 }
