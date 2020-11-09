@@ -15,13 +15,17 @@ public class ClientService implements IClientService{
 	
 	@Override
 	public List<Client> read() {
-		// TODO Auto-generated method stub
 		return (List<Client>) data.findAll();
 	}
 
 	@Override
 	public int save(Client client) {
-		// TODO Auto-generated method stub
+		int res=0; 
+		Client c = data.save(client);
+		if(c != null)
+		{
+			res = 1; 
+		}
 		return 0;
 	}
 

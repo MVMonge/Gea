@@ -2,17 +2,22 @@ package com.demoweb.controller;
 
 import java.util.List;
 
-import javax.persistence.Column;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.demoweb.model.Admin;
 import com.demoweb.model.Client;
 import com.demoweb.modelinterface.IAdmin;
 import com.demoweb.modelinterface.IClient;
+import com.demoweb.service.ClientService;
 import com.demoweb.serviceinterfaces.IClientService;
 
 @org.springframework.stereotype.Controller
@@ -22,6 +27,7 @@ public class Controller {
 	private IAdmin adminrepo;
 	@Autowired
 	private IClient clientrepo;
+	private ClientService service; 
 	
 	@GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name",required=false,defaultValue="World")String name, Model model) {
@@ -30,8 +36,9 @@ public class Controller {
 	
 		return "greeting";
 	}
+	
 	@GetMapping("/clientread")
-	public String greeting(Model model) {
+	public String ReadClients(Model model) {
 		Admin admin = new Admin();
 		admin.setIdAdmin(1);
 		admin.setName("Name2");
@@ -47,11 +54,22 @@ public class Controller {
 		a.setName("Juana Auad");
 		a.setEmail("juana.auad@gmail.com");
 		a.setId_administrator(1);
-		clientrepo.save(a);
+		service.save(a);
 		
-		List<Client> clients = clientrepo.findAll();
+		List<Client> clients = service.read();
 		model.addAttribute("clients",clients);
 		return "clientread";
 	}
+	@GetMapping("/newclient")
+	public String AddClient(Model model) {
+		model.addAttribute("client", new Client());
+		return "clientadd";
+	}
+	@PostMapping("/save")
+	public String SaveClient(@Valid Client c, Model model) {
+		service.save(c);
+		return("redirect:/clientread");
+	}
+	
 }
  

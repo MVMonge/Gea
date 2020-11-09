@@ -13,12 +13,10 @@
   <body>
     <div class="container mt-4">
       <div class="col-sm-6">
-        <form th:action="@{/save}" th:oject=${persona} method="POST">
+        <form th:action="@{/save}" th:object=${client} method="POST">
           <div class="card">
             <div class="card-header">
-              <h3>
-                Add Client
-              </h3>
+              <h3>Client</h3>
             </div>
             <div class="card-body">
               <div class="form-group">
@@ -36,7 +34,7 @@
             </div>
             <div class="card-footer">
             <input type="submit" value="Save" class="btn btn-success">
-            <input type="submit" value="Cancel" class="btn btn-success">
+            <input type="submit" value="Cancel" class="btn btn-warning">
             </div>
           </div>
         </form>
