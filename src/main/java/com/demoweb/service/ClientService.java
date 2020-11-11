@@ -26,7 +26,7 @@ public class ClientService implements IClientService{
 		{
 			res = 1; 
 		}
-		return 0;
+		return res;//return 0;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ xmlns:th="http://www.thymeleaf.org>">
   
 <div class="container">
   <h2>Sales</h2>     
-  <a th:href="@{/clientadd}" class="btn btn-primary">New Sale</a> 
+  <a th:href="@{/newsalw}" class="btn btn-primary">New Sale</a> 
   <table class="table table-striped">
     <thead>
       <tr>
@@ -42,15 +42,15 @@ xmlns:th="http://www.thymeleaf.org>">
       </tr>
     </thead>
     <tbody>
-      <tr th:each="client:${clients}">
-					<td th:text=${provider.id}></td>
-					<td th:text=${provider.name}></td>
-          <td th:text=${provider.name}></td>
-					<td th:text=${client.phone}></td>
-          <td>
+      <tr th:each="sale:${sales}">
+			<td th:text=${sale.id}></td>
+			<td th:text=${sale.getprovidername()}></td>
+            <td th:text=${sale.income}></td>
+			<td th:text=${sale.date}></td>
+          	<td>
 					<a class="btn btn-warning">Edit</a>
 					<a class="btn btn-warning">Delete</a>
-					</td>
+			</td>
 		</tr>
     </tbody>
   </table>

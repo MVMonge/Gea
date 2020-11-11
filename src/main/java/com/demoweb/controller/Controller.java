@@ -9,25 +9,24 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.demoweb.model.Admin;
 import com.demoweb.model.Client;
 import com.demoweb.modelinterface.IAdmin;
-import com.demoweb.modelinterface.IClient;
+import com.demoweb.service.AdminService;
+//import com.demoweb.modelinterface.IClient;
 import com.demoweb.service.ClientService;
-import com.demoweb.serviceinterfaces.IClientService;
 
 @org.springframework.stereotype.Controller
 public class Controller {
 
-	@Autowired
-	private IAdmin adminrepo;
-	@Autowired
-	private IClient clientrepo;
-	private ClientService service; 
+//	@Autowired
+//	private IAdmin adminrepo;
+//	@Autowired
+	//private IClient clientrepo;
+	private ClientService clientservice; 
+	private AdminService adminservice;
+	
 	
 	@GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name",required=false,defaultValue="World")String name, Model model) {
@@ -42,11 +41,11 @@ public class Controller {
 		Admin admin = new Admin();
 		admin.setIdAdmin(1);
 		admin.setName("Name2");
-		adminrepo.save(admin);
-		
-		List<Admin> administrators = adminrepo.findAll();
+		adminservice= new AdminService();
+		adminservice.save(admin);
+		System.out.print(adminservice.toString());		
+		List<Admin> administrators = adminservice.read();
 		model.addAttribute("administrators",administrators);
-		
 		
 		
 		Client a = new Client();
@@ -54,10 +53,11 @@ public class Controller {
 		a.setName("Juana Auad");
 		a.setEmail("juana.auad@gmail.com");
 		a.setId_administrator(1);
-		service.save(a);
+		clientservice.save(a);
 		
-		List<Client> clients = service.read();
+		List<Client> clients = clientservice.read();
 		model.addAttribute("clients",clients);
+		
 		return "clientread";
 	}
 	@GetMapping("/newclient")
@@ -67,7 +67,7 @@ public class Controller {
 	}
 	@PostMapping("/save")
 	public String SaveClient(@Valid Client c, Model model) {
-		service.save(c);
+		clientservice.save(c);
 		return("redirect:/clientread");
 	}
 	

@@ -15,14 +15,18 @@ public class AdminService implements IAdminService{
 	
 	@Override
 	public List<Admin> read() {
-		// TODO Auto-generated method stub
 		return (List<Admin>) data.findAll();
 	}
 
 	@Override
 	public int save(Admin administrator) {
-		// TODO Auto-generated method stub
-		return 0;
+		int res=0;
+		Admin a = data.save(administrator);
+		if(a != null)
+		{
+			res = 1; 
+		}
+		return res;// return 0; 
 	}
 
 	@Override

@@ -12,6 +12,7 @@ public class Admin {
 	private int idAdmin;
 	@Column(name="nombre", length =50)
 	private String name;
+	
 	public int getIdAdmin() {
 		return idAdmin;
 	}
