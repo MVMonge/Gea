@@ -16,6 +16,8 @@ import com.demoweb.modelinterface.IAdmin;
 import com.demoweb.service.AdminService;
 //import com.demoweb.modelinterface.IClient;
 import com.demoweb.service.ClientService;
+import com.demoweb.serviceinterfaces.IAdminService;
+import com.demoweb.serviceinterfaces.IClientService;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -24,8 +26,9 @@ public class Controller {
 //	private IAdmin adminrepo;
 //	@Autowired
 	//private IClient clientrepo;
-	private ClientService clientservice; 
-	private AdminService adminservice;
+	private IClientService clientservice; 
+	
+	private IAdminService adminservice = new AdminService();
 	
 	
 	@GetMapping("/greeting")
@@ -38,22 +41,23 @@ public class Controller {
 	
 	@GetMapping("/clientread")
 	public String ReadClients(Model model) {
-		Admin admin = new Admin();
+		Admin admin = new Admin("Name1");
 		admin.setIdAdmin(1);
-		admin.setName("Name2");
-		adminservice= new AdminService();
+		//adminservice= new AdminService();
+		
 		adminservice.save(admin);
-		System.out.print(adminservice.toString());		
+		System.out.print(adminservice.toString());
+		
 		List<Admin> administrators = adminservice.read();
 		model.addAttribute("administrators",administrators);
 		
 		
-		Client a = new Client();
+	/*	Client a = new Client();
 		a.setPhone("1576883452");
 		a.setName("Juana Auad");
 		a.setEmail("juana.auad@gmail.com");
 		a.setId_administrator(1);
-		clientservice.save(a);
+		clientservice.save(a);*/
 		
 		List<Client> clients = clientservice.read();
 		model.addAttribute("clients",clients);

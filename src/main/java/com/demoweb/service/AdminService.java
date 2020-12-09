@@ -26,7 +26,7 @@ public class AdminService implements IAdminService{
 		{
 			res = 1; 
 		}
-		return res;// return 0; 
+		return 0;// return 0; 
 	}
 
 	@Override
