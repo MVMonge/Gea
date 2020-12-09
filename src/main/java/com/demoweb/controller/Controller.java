@@ -22,35 +22,25 @@ import com.demoweb.serviceinterfaces.IClientService;
 @org.springframework.stereotype.Controller
 public class Controller {
 
-//	@Autowired
-//	private IAdmin adminrepo;
-//	@Autowired
-	//private IClient clientrepo;
-	private IClientService clientservice; 
+	private IAdminService adminservice = new AdminService();	
 	
-	private IAdminService adminservice = new AdminService();
-	
+	@GetMapping("/")
+	public String Login(Model model) {
+		
+		return "login";
+	}
+	@GetMapping("/error")
+	public String Home(Model model) {
+		return "login";
+	}
 	
 	@GetMapping("/greeting")
 	public String greeting(@RequestParam(name="name",required=false,defaultValue="World")String name, Model model) {
-	
-		//Guardo mi nueva persona en la base de datos:: VA EN SERVICE
-	
 		return "greeting";
 	}
 	
 	@GetMapping("/clientread")
 	public String ReadClients(Model model) {
-		Admin admin = new Admin("Name1");
-		admin.setIdAdmin(1);
-		//adminservice= new AdminService();
-		
-		adminservice.save(admin);
-		System.out.print(adminservice.toString());
-		
-		List<Admin> administrators = adminservice.read();
-		model.addAttribute("administrators",administrators);
-		
 		
 	/*	Client a = new Client();
 		a.setPhone("1576883452");
@@ -59,19 +49,21 @@ public class Controller {
 		a.setId_administrator(1);
 		clientservice.save(a);*/
 		
-		List<Client> clients = clientservice.read();
-		model.addAttribute("clients",clients);
+		//List<Client> clients = clientservice.read();
+		//model.addAttribute("clients",clients);
 		
 		return "clientread";
 	}
+	
 	@GetMapping("/newclient")
 	public String AddClient(Model model) {
 		model.addAttribute("client", new Client());
 		return "clientadd";
 	}
+	
 	@PostMapping("/save")
 	public String SaveClient(@Valid Client c, Model model) {
-		clientservice.save(c);
+		//clientservice.save(c);
 		return("redirect:/clientread");
 	}
 	
